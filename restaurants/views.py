@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
+from pyswip.prolog import Prolog
+from pyswip.easy import *
+
 def home(request):
 	return render(request, "index.html", {})
 
