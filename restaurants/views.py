@@ -11,13 +11,13 @@ def query_restaurant(request):
 	type_restaurant = request.POST.get('type')
 	ifveg = request.POST.get('veg')
 
-	print(distance);
-	print(price);
-	print(type_restaurant);
-	print(ifveg);
-	# Write code here: 
+	print(distance)
+	print(price)
+	print(type_restaurant)
+	print(ifveg)
+	# Write code here:
 
-	result = {	
+	result = {
 		"restaurant_name": "None" #change value here
-	} 
+	}
 	return JsonResponse(result)
