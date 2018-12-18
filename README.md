@@ -1,5 +1,4 @@
 # CS152 LBA
-Python 2
 
 (These instructions are for a MacOS system)
 
