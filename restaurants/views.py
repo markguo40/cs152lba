@@ -17,7 +17,7 @@ def query_prolog(data, output):
 	veg_options = str(data[3])
 
 	# open KB file from static location
-	prolog.consult('static/KB_alt.pl')
+	prolog.consult('static/KB.pl')
 
 	# assert knowledge at top of KB
 	prolog.asserta("veg_options("+veg_options+")")
