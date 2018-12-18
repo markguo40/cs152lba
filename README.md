@@ -30,6 +30,6 @@ export DYLD_FALLBACK_LIBRARY_PATH=/Applications/SWI-Prolog.app/Contents/swipl/li
 ```
 ## Run app
 
-- Navigate to the `cs152lba` and enter the following into terminal:
+- Navigate into the `cs152lba` directory and enter the following into terminal:
 
 `python manage.py runserver`
