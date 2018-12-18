@@ -34,7 +34,7 @@
 
 
 			  <div class="form-group up-margin">
-				    <label for="exampleFormControlSelect1">What distance to residence hall you are looking from </label>
+				    <label for="exampleFormControlSelect1">What distance from the residence hall are you looking for?</label>
 			  	<div class="row">
 					<div class="form-check col-sm-4">
 			          <input class="form-check-input" type="radio" name="distance" id="distance1" value="close">
@@ -43,9 +43,9 @@
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
-			          <input class="form-check-input" type="radio" name="distance" id="distance2" value="median">
+			          <input class="form-check-input" type="radio" name="distance" id="distance2" value="medium">
 			          <label class="form-check-label" for="distance2">
-			            Median
+			            Medium
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
@@ -54,13 +54,13 @@
 			            Far
 			          </label>
 			        </div>
-		
+
 				</div>
 			  </div>
-			  
+
 
 			  <div class="form-group up-margin">
-				    <label for="exampleFormControlSelect1">What price level you are looking from </label>
+				    <label for="exampleFormControlSelect1">What price level are you looking for?</label>
 			  	<div class="row">
 					<div class="form-check col-sm-4">
 			          <input class="form-check-input" type="radio" name="price" id="price1" value="low">
@@ -69,9 +69,9 @@
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
-			          <input class="form-check-input" type="radio" name="price" id="price2" value="median">
+			          <input class="form-check-input" type="radio" name="price" id="price2" value="medium">
 			          <label class="form-check-label" for="price2">
-			            Median
+			            Medium
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
@@ -80,13 +80,13 @@
 			            High
 			          </label>
 			        </div>
-		
+
 				</div>
 			  </div>
 
 
 			  <div class="form-group">
-			    <label for="restaurant-type">What type of restaurants you are interested?</label>
+			    <label for="restaurant-type">What type of cuisine are you looking for?</label>
 			    <select class="form-control" id="restaurant-type">
 			    	<option value="none" selected>Choose ...</option>
 			      <option value="korean">Korean</option>
@@ -105,7 +105,7 @@
 		        <div class="form-check">
 			        <input class="form-check-input" type="checkbox" id="ifvegitarian">
 			        <label class="form-check-label" for="gridCheck1">
-			          Vegitarian Option Available
+			          Vegetarian Option Available
 			        </label>
 			      </div>
   				</div>
@@ -113,15 +113,15 @@
 
 		  	<button class="btn btn-primary btn-lg up-margin" id="submit" >Submit</button>
 		</div>
-
+    {% csrf_token %}
 	</div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 
     <script type="text/javascript">
-        
-        $.ajaxSetup({ 
+
+        $.ajaxSetup({
              beforeSend: function(xhr, settings) {
                  function getCookie(name) {
                      var cookieValue = null;
@@ -142,7 +142,7 @@
                      // Only send the token to relative URLs i.e. locally.
                      xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                  }
-             } 
+             }
         });
 
 
@@ -152,26 +152,24 @@
             const price = $("input[name='price']:checked").val();
             const type = $("#restaurant-type").val();
             var veg = $("#ifvegitarian:checked").val();
-            
+
             if (distance === undefined) {
             	alert("Please choose a distance");
-            	return 
+            	return
             }
             if (price === undefined) {
             	alert("Please choose a price");
-            	return 
+            	return
             }
             if (type === "none") {
             	alert("Please choose a type of restaurants");
-            	return 
+            	return
             }
             if (veg === undefined) {
         		veg = "no";
             } else {
             	veg = "yes"
             }
-
-            console.log(distance, price, type, veg);
 
             $.ajax({
               url: "{% url 'query_restaurant' %}",
@@ -183,7 +181,7 @@
               },
               type: "post",
               success: function(data) {
-                console.log(data);
+                // console.log(data);
                 alert(data.restaurant_name);
               }
             });
