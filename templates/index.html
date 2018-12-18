@@ -171,8 +171,6 @@
             	veg = "yes"
             }
 
-            // console.log(distance, price, type, veg);
-
             $.ajax({
               url: "{% url 'query_restaurant' %}",
               data: {
@@ -183,8 +181,8 @@
               },
               type: "post",
               success: function(data) {
-                console.log(data);
-                // alert(data.restaurant_name);
+                // console.log(data);
+                alert(data.restaurant_name);
               }
             });
         });

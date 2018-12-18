@@ -9,5 +9,5 @@ recommendation('Bento Bab') :- veg_options(yes), distance(close), type(korean), 
 recommendation('Itsu') :- veg_options(yes), distance(far), type(chinese), price(medium).
 recommendation('Great') :- veg_options(no), distance(close), type(mediterranean), price(high).
 recommendation('Wedge') :- veg_options(yes), distance(close), type(italian), price(medium).
-recommendation('Coin Laundry') :- veg_options(yes), distance(close), price(medium).
+recommendation('Coin Laundry') :- veg_options(yes), distance(close), type(british), price(medium).
 recommendation('Leather Lane') :- veg_options(yes), distance(close), price(low).

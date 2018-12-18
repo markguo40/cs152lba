@@ -4,13 +4,13 @@ from django.http import JsonResponse
 
 from multiprocessing import Queue, Process
 
-def run_unification(data, output):
+def query_prolog(data, output):
 	from pyswip.prolog import Prolog
 	from pyswip.easy import call, Functor, registerForeign
 
 	prolog = Prolog() # handle for Prolog interpreter
 
-	# Prolog inputs
+	# Fetch Prolog inputs
 	distance = str(data[0])
 	price = str(data[1])
 	type = str(data[2])
@@ -19,8 +19,6 @@ def run_unification(data, output):
 	# open KB file from static location
 	prolog.consult('static/KB_alt.pl')
 
-	print("distance("+distance+")")
-
 	# assert knowledge at top of KB
 	prolog.asserta("veg_options("+veg_options+")")
 	prolog.asserta("distance("+distance+")")
@@ -28,18 +26,12 @@ def run_unification(data, output):
 	prolog.asserta("type("+type+")")
 
 	# get results from KB
-	results = [sol for sol in prolog.query("recommendation(X).", maxresult=1)]
-	# print([sol for sol in prolog.query("recommendation(X).", maxresult=1)])
-	# for soln in prolog.query("recommendation(X).", maxresult=1):
-	#     resultcount = resultcount + 1
-	#     output.put(("You should eat at " + soln['X'] + "!"))
-	#
+	results = [sol['X'] for sol in prolog.query("recommendation(X).", maxresult=1)]
 
-	# if not results:
-	# 	output.put(("No restaurant could be identified!"))
-	# else:
-	# 	print(results)
-	output.put((results))
+	if results:
+		output.put(("You should eat at " + results[0] + "!"))
+	else:
+		output.put(("No restaurant could be identified!"))
 
 def home(request):
 	return render(request, "index.html", {})
@@ -52,18 +44,16 @@ def query_restaurant(request):
 
 	data = [distance, price, type_restaurant, ifveg]
 
+	# create Prolog parallel process
 	output = Queue()
-
-	process = Process(target=run_unification, args=(data, output, ))
+	process = Process(target=query_prolog, args=(data, output, ))
 	process.start()
 	process.join()
 
-
+	# get results from Prolog subprocess
 	results = output.get()
 
-	# print(results)
-
 	result = {
-		"restaurant_name": results #change value here
+		"restaurant_name": results
 	}
 	return JsonResponse(result)
