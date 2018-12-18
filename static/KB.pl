@@ -9,5 +9,5 @@ recommendation('Pizza Pilgrims') :- distance(close), type(italian), price(medium
 recommendation('Bento Bab') :- distance(close), type(korean), price(low).
 recommendation('Itsu') :- distance(far), type(chinese), price(medium).
 recommendation('Great') :- veg_options(no), distance(close), type(mediterranean), price(high).
-recommendation('Coin Laundry') :- distance(close), type(british), price(medium).
+recommendation('Coin Laundry') :- distance(close), price(medium).
 recommendation('Leather Lane') :- distance(close), price(low).
