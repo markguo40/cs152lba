@@ -18,7 +18,7 @@ cd cs152lba
 pip install -r requirements.txt
 ```
 
-- Replace the `pyswip` package in the virtual environment with the folder from the cloned repository
+- Replace the `pyswip` package in the virtual environment with the `pyswip` folder from the cloned repository
 
 Go back to `.venv/lib/python3.7/site-packages/pyswip` and swap out the pyswip folder with the one in the home directory of the cloned repository
 
