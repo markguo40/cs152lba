@@ -1,4 +1,3 @@
-% Enter your KB below this line:
 recommendation('Wing Wing') :- veg_options(yes), distance(far), type(korean), price(high).
 recommendation('Indian Veg') :- veg_options(yes), distance(medium), type(indian), price(low).
 recommendation('King of Falafel') :- veg_options(yes), distance(close), type(arabic), price(low).
@@ -19,8 +18,6 @@ distance(X):- menuask3(distance, X, [close, medium, far]).
 price(X):- menuask3(price, X, [low, medium, high]).
 
 multivalued(none).
-
-% The code below implements the prompting to ask the user:
 
 % Asking clauses
 

@@ -10,49 +10,36 @@ def run_unification(data, output):
 
 	prolog = Prolog() # handle for Prolog interpreter
 
+	# Prolog inputs
+	distance = str(data[0])
+	price = str(data[1])
+	type = str(data[2])
+	veg_options = str(data[3])
+
 	# open KB file from static location
-	prolog.consult('static/KB.pl')
+	prolog.consult('static/KB_alt.pl')
 
-	retractall = Functor("retractall")
-	known = Functor("known", 3)
+	print("distance("+distance+")")
 
-	# Prolog functions
+	# assert knowledge at top of KB
+	prolog.asserta("veg_options("+veg_options+")")
+	prolog.asserta("distance("+distance+")")
+	prolog.asserta("price("+price+")")
+	prolog.asserta("type("+type+")")
 
-	# distance or price
-	def read_py_menu3(A,V,Y):
-		if str(A) == 'distance':
-			Y.unify(str(data[0]))
-		else:
-			Y.unify(str(data[1]))
-		return True
+	# get results from KB
+	results = [sol for sol in prolog.query("recommendation(X).", maxresult=1)]
+	# print([sol for sol in prolog.query("recommendation(X).", maxresult=1)])
+	# for soln in prolog.query("recommendation(X).", maxresult=1):
+	#     resultcount = resultcount + 1
+	#     output.put(("You should eat at " + soln['X'] + "!"))
+	#
 
-	# restaurant type
-	def read_py_menu8(A,V,Y):
-	    Y.unify(str(data[2]))
-	    return True
-
-	# veg options
-	def read_py(A,V,Y):
-		if str(A) == 'veg_options':
-			Y.unify(str(data[3]))
-		return True
-
-	read_py.arity = 3
-	read_py_menu8.arity = 3
-	read_py_menu3.arity = 3
-
-	registerForeign(read_py)
-	registerForeign(read_py_menu8)
-	registerForeign(read_py_menu3)
-
-	call(retractall(known))
-	resultcount = 0
-	for soln in prolog.query("recommendation(X).", maxresult=1):
-	    resultcount = resultcount + 1
-	    output.put(("You should eat at " + soln['X'] + "!"))
-
-	if not resultcount:
-		output.put(("No restaurant could be identified!"))
+	# if not results:
+	# 	output.put(("No restaurant could be identified!"))
+	# else:
+	# 	print(results)
+	output.put((results))
 
 def home(request):
 	return render(request, "index.html", {})
@@ -74,19 +61,9 @@ def query_restaurant(request):
 
 	results = output.get()
 
-	print(results)
-	# start thread Pool on which to run Prolog interpreter
-	# pool = Pool(None, initialise)
-
-	# pool.apply(run_unification, (data,))
-	#
-	# pool.close()
-	# pool.join()
-	#
-	# results = [r.get() for r in results]
 	# print(results)
 
 	result = {
-		"restaurant_name": "None" #change value here
+		"restaurant_name": results #change value here
 	}
 	return JsonResponse(result)

@@ -43,9 +43,9 @@
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
-			          <input class="form-check-input" type="radio" name="distance" id="distance2" value="median">
+			          <input class="form-check-input" type="radio" name="distance" id="distance2" value="medium">
 			          <label class="form-check-label" for="distance2">
-			            Median
+			            Medium
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
@@ -69,9 +69,9 @@
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
-			          <input class="form-check-input" type="radio" name="price" id="price2" value="median">
+			          <input class="form-check-input" type="radio" name="price" id="price2" value="medium">
 			          <label class="form-check-label" for="price2">
-			            Median
+			            Medium
 			          </label>
 			        </div>
 			        <div class="form-check col-sm-4">
@@ -171,7 +171,7 @@
             	veg = "yes"
             }
 
-            console.log(distance, price, type, veg);
+            // console.log(distance, price, type, veg);
 
             $.ajax({
               url: "{% url 'query_restaurant' %}",
@@ -184,7 +184,7 @@
               type: "post",
               success: function(data) {
                 console.log(data);
-                alert(data.restaurant_name);
+                // alert(data.restaurant_name);
               }
             });
         });
